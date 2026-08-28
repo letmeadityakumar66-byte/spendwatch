@@ -1,0 +1,28 @@
+name: Book an AI Coding Spend Audit
+description: "$500 fixed · 3-day delivery — spendwatch run across your team's machines, a report on where the money goes, and five concrete fixes."
+title: "[Audit] "
+labels: [audit]
+body:
+  - type: input
+    id: team
+    attributes:
+      label: Team size
+      placeholder: e.g. 6 engineers
+    validations:
+      required: true
+  - type: checkboxes
+    id: tools
+    attributes:
+      label: Agents in use
+      options:
+        - label: Claude Code
+        - label: Codex
+        - label: Cursor
+        - label: Other
+  - type: input
+    id: contact
+    attributes:
+      label: Best way to reach you
+      placeholder: email / X / LinkedIn
+    validations:
+      required: true
