@@ -54,6 +54,8 @@ npx spendwatch            # no install needed
 npm i -g spendwatch       # or install it
 ```
 
+*(both live on the npm registry as of 28 Aug 2026)*
+
 Requires **Node >= 22.5** (for the built-in SQLite reader). **Zero runtime dependencies.**
 
 ## Usage
