@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>spendwatch — what your AI coding agents actually cost</title>
+<meta name="description" content="Cross-vendor cost intelligence for Claude Code, Codex and Cursor. One command, 100% local, zero dependencies.">
+<style>
+:root{--bg:#0d1116;--panel:#141a21;--ink:#eaeef2;--body:#bfc9d4;--mut:#7c8a96;--rule:#242d36;--acc:#e89a3c;--ok:#3fb39c}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--body);font:16px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:0 24px}
+.wrap{max-width:860px;margin:0 auto;padding:72px 0 96px}
+h1{color:var(--ink);font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.1;letter-spacing:-.02em}
+h1 em{color:var(--acc);font-style:normal}
+h2{color:var(--ink);font-size:1.05rem;margin:56px 0 14px;text-transform:uppercase;letter-spacing:.12em}
+p{margin:14px 0}
+a{color:var(--acc)}
+.tag{color:var(--acc);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem}
+.lede{color:var(--body);font-size:1.05rem;max-width:60ch}
+.term{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:22px 24px;margin:28px 0;overflow-x:auto}
+.term pre{font-size:.82rem;line-height:1.7;color:var(--ink)}
+.term .d{color:var(--mut)}.term .a{color:var(--acc)}.term .g{color:var(--ok)}
+.install{background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:18px 22px;margin:24px 0;color:var(--ink);font-size:.95rem;overflow-x:auto;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px 20px}
+.card b{color:var(--ink)}.card p{font-size:.88rem;color:var(--mut)}
+footer{margin-top:72px;border-top:1px solid var(--rule);padding-top:22px;color:var(--mut);font-size:.85rem}
+</style>
+</head>
+<body><div class="wrap">
+<div class="tag">spendwatch</div>
+<h1>One project ate <em>51%</em> of my AI coding spend.<br>No dashboard could show me.</h1>
+<p class="lede">Anthropic will never show you your Cursor usage. Cursor will never show you Codex. spendwatch reads the logs your agents already write locally and answers the question no vendor can: <b>where is the money actually going?</b></p>
+
+<div class="install">npm install -g https://github.com/letmeadityakumar66-byte/spendwatch/releases/download/v0.1.0/spendwatch-0.1.0.tgz &nbsp;&amp;&amp;&nbsp; spendwatch</div>
+
+<div class="term"><pre><span class="d">$ spendwatch</span>
+
+  <span class="a">spendwatch</span>  ·  127 sessions  ·  24,824 turns  ·  Feb 5 → Aug 27, 2026
+
+  SPEND
+    API-equivalent cost               <span class="a">$4,408.82</span>
+
+  BY PROJECT
+    ~/work/atlas-api               <span class="a">$2,259.76   51.3%</span>  ██████······
+    ~/work/beacon                   $1,032.95   23.4%  ███·········
+    ~/work/portal                     $867.11   19.7%  ██··········
+
+  cache reuse                           54.9×  <span class="g">healthy</span></pre></div>
+
+<h2>Rules it refuses to break</h2>
+<div class="grid">
+<div class="card"><b>100% local</b><p>No network code exists in the package. Your prompts and code are never read, stored, or sent. ~700 lines — audit it in one sitting.</p></div>
+<div class="card"><b>Never guesses a price</b><p>Unknown models are counted and reported unpriced, never estimated. gpt-5.3-codex is not gpt-5, despite the string prefix.</p></div>
+<div class="card"><b>Never double-counts</b><p>Session replay inflated our own test number 2× — deduplication on request id is built in.</p></div>
+</div>
+
+<h2>Reads</h2>
+<p>Claude Code transcripts · Codex rollouts · Cursor's commit-authorship DB (read-only). Zero runtime dependencies. Node ≥ 22.5. MIT.</p>
+
+<footer>
+<a href="https://github.com/letmeadityakumar66-byte/spendwatch">github.com/letmeadityakumar66-byte/spendwatch</a> · sibling project: <a href="https://letmeadityakumar66-byte.github.io/mcpwatch/">mcpwatch</a> — supply-chain watch for MCP servers
+</footer>
+</div></body></html>
