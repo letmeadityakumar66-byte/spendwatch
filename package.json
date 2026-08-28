@@ -1,6 +1,6 @@
 {
   "name": "spendwatch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "See what your AI coding agents actually cost \u2014 across Claude Code, Codex, and Cursor. Runs 100% locally.",
   "keywords": [
     "claude-code",

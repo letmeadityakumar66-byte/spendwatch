@@ -63,6 +63,7 @@ spendwatch                    # full report
 spendwatch --days 7           # just this week
 spendwatch --json             # machine-readable, for dashboards and CI
 spendwatch --inr-rate 88      # set the USD→INR display rate
+spendwatch --audit "Client Name"  # client-ready audit report (markdown)
 spendwatch --help
 ```
 
@@ -73,6 +74,9 @@ spendwatch --help
 | `~/.claude/projects/**/*.jsonl` | Claude Code | tokens, model, project, branch |
 | `~/.codex/{sessions,archived_sessions}/**` | Codex | tokens, model, project |
 | `~/.cursor/ai-tracking/*.db` | Cursor | commit authorship — AI vs human lines *(read-only)* |
+| `~/.copilot/data.db` | GitHub Copilot CLI | per-session token totals *(read-only)* |
+
+Gemini CLI records no per-turn token usage locally (as of Aug 2026) — tracked in issues.
 
 **Your prompts and code are never read for reporting, never stored, and never
 transmitted.** Only token counts, model ids and directory paths are aggregated.

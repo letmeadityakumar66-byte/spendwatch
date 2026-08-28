@@ -3,7 +3,7 @@ import { summarise } from "./aggregate.js";
 import { scan } from "./parsers/index.js";
 import { render, renderMissing } from "./report.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
 
 // node:sqlite is still flagged experimental on Node 22. Suppress only that one
 // notice, so genuine warnings from anywhere else still reach the user.
@@ -27,6 +27,7 @@ const HELP = `
     --days <n>        Only count activity from the last n days
     --json            Emit machine-readable JSON instead of a report
     --inr-rate <n>    USD→INR rate used for display (default 88)
+    --audit <client>  Emit a client-ready audit report (markdown) instead
     --no-color        Disable ANSI colour
     -v, --version     Print version
     -h, --help        Print this help
@@ -41,7 +42,7 @@ const HELP = `
 `;
 
 function parseArgs(argv: string[]) {
-  const opts = { json: false, days: null as number | null, inrRate: 88, help: false, version: false };
+  const opts = { json: false, days: null as number | null, inrRate: 88, help: false, version: false, audit: null as string | null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--json") opts.json = true;
@@ -52,6 +53,10 @@ function parseArgs(argv: string[]) {
       const v = Number(argv[++i]);
       if (!Number.isFinite(v) || v <= 0) fail(`--days needs a positive number, got "${argv[i]}"`);
       opts.days = v;
+    } else if (a === "--audit") {
+      const v = argv[++i];
+      if (!v || v.startsWith("--")) fail("--audit needs a client name");
+      opts.audit = v;
     } else if (a === "--inr-rate") {
       const v = Number(argv[++i]);
       if (!Number.isFinite(v) || v <= 0) fail(`--inr-rate needs a positive number, got "${argv[i]}"`);
@@ -74,6 +79,12 @@ async function main() {
   const result = await scan();
   const sinceMs = opts.days === null ? null : Date.now() - opts.days * 86_400_000;
   const summary = summarise(result, sinceMs);
+
+  if (opts.audit) {
+    const { auditReport } = await import("./audit.js");
+    process.stdout.write(auditReport(summary, { client: opts.audit, days: opts.days }));
+    return;
+  }
 
   if (opts.json) {
     process.stdout.write(JSON.stringify({

@@ -4,6 +4,7 @@ import type { PricedTurn, ScanResult, Vendor } from "../types.js";
 import { CLAUDE_DIR, parseClaudeCode } from "./claude-code.js";
 import { CODEX_DIRS, parseCodex } from "./codex.js";
 import { CURSOR_DB, parseCursor } from "./cursor.js";
+import { COPILOT_DB, parseCopilot } from "./copilot.js";
 
 /**
  * Read every local agent log and price it. Nothing here touches the network —
@@ -16,15 +17,17 @@ export async function scan(): Promise<ScanResult> {
   if (!existsSync(CLAUDE_DIR)) missing.push("claude-code");
   if (!CODEX_DIRS.some(existsSync)) missing.push("codex");
   if (!existsSync(CURSOR_DB)) missing.push("cursor");
+  if (!existsSync(COPILOT_DB)) missing.push("copilot");
 
   // A single dedupe set spans vendors so a replayed id can never be counted twice.
   const seen = new Set<string>();
-  const [claude, codex, commits] = await Promise.all([
+  const [claude, codex, copilot, commits] = await Promise.all([
     parseClaudeCode(seen),
     parseCodex(),
+    parseCopilot(warnings),
     parseCursor(warnings),
   ]);
 
-  const turns: PricedTurn[] = [...claude, ...codex].map((t) => ({ ...t, cost: priceTurn(t) }));
+  const turns: PricedTurn[] = [...claude, ...codex, ...copilot].map((t) => ({ ...t, cost: priceTurn(t) }));
   return { turns, commits, missing, warnings };
 }

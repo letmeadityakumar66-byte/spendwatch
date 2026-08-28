@@ -14,7 +14,7 @@ export interface Turn {
   thinkingTokens: number;
 }
 
-export type Vendor = "claude-code" | "codex" | "cursor";
+export type Vendor = "claude-code" | "codex" | "cursor" | "copilot";
 
 /** A Turn priced against the rate table. `cost` is null when the rate is unknown. */
 export interface PricedTurn extends Turn {
